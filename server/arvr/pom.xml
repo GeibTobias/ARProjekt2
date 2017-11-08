@@ -5,6 +5,18 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>AuguMaps</name>
   
+  <build>
+	  <plugins>
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-jar-plugin</artifactId>
+	      <version>2.3.1</version>
+	      <configuration>
+	        <outputDirectory>../build/</outputDirectory>
+	      </configuration>
+	    </plugin>
+	  </plugins>
+	</build>
   
   	<parent>
 		<groupId>org.springframework.boot</groupId>
