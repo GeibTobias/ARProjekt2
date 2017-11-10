@@ -35,7 +35,8 @@ function initMap() {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             console.log(results);
             for (var i = 0; i < results.length; i++) {
-                var image = 'images/qr50/' + (i+1) + '.png'
+//                var image = 'images/qr50/' + (i+1) + '.png'
+                var image = 'images/qr50/1' + '.png'
                 var place = results[i];
                 // If the request succeeds, draw the place location on
                 // the map as a marker, and register an event to handle a
