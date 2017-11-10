@@ -36,7 +36,7 @@ function initMap() {
             console.log(results);
             for (var i = 0; i < results.length; i++) {
 //                var image = 'images/qr50/' + (i+1) + '.png'
-                var image = 'images/qr50/1' + '.png'
+                var image = 'images/POI/brandenburger.jpg'
                 var place = results[i];
                 // If the request succeeds, draw the place location on
                 // the map as a marker, and register an event to handle a
@@ -44,7 +44,10 @@ function initMap() {
                 var marker = new google.maps.Marker({
                     map: map,
                     position: place.geometry.location,
-                    icon: image
+                    icon: {
+                        url: image,
+                        scaledSize: new google.maps.Size(156, 78)
+                    }
                 });
                 waypoints.push({location: place.geometry.location})
                 placesCount++;
