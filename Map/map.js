@@ -96,10 +96,10 @@ function getRoute(waypoints) {
 }
 
 function initMap() {
-    // Brandenburger Tor, Berlin
+    // New York
     var start = {
-        lat: 52.51369,
-        lng: 13.391159
+        lat: 40.697139,
+        lng: -73.979781
     };
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -120,8 +120,18 @@ function initMap() {
     initPois(start, function () {
         console.log(pois);
         onPoiListChanged([pois[0].place_id, pois[1].place_id, pois[2].place_id, pois[3].place_id, pois[4].place_id, pois[5].place_id, pois[6].place_id, pois[7].place_id, pois[8].place_id, pois[9].place_id]);
+        
+        adaptMarkerToZoomLevel(map.zoom);
     });
 
+    map.addListener('zoom_changed', function () {
+        console.log('zoom level: ' + map.zoom);
+        
+        adaptMarkerToZoomLevel(map.zoom)
+    });
+}
+
+function adaptMarkerToZoomLevel(level) {
     var threshold = [1000000,
                      1000000,
                      1000000,
@@ -152,22 +162,18 @@ function initMap() {
                      1,
                      1,
                      1];
+    
+    for (var i = 0; i < pois.length - 1; i++) {
+        pois[i].marker.setMap(map);
+    }
 
-    map.addListener('zoom_changed', function () {
-        console.log('zoom level: ' + map.zoom);
-        
-        for (var i = 0; i < pois.length - 1; i++) {
-            pois[i].marker.setMap(map);
-        }
-
-        for (var i = 0; i < pois.length - 1; i++) {
-            for (var j = i + 1; j < pois.length - 1; j++) {
-                if (pois[i].marker.getMap() != null && getDistanceBetween(pois[i], pois[j]) < threshold[map.zoom]) {
-                    pois[j].marker.setMap(null);
-                }
+    for (var i = 0; i < pois.length - 1; i++) {
+        for (var j = i + 1; j < pois.length - 1; j++) {
+            if (pois[i].marker.getMap() != null && getDistanceBetween(pois[i], pois[j]) < threshold[map.zoom]) {
+                pois[j].marker.setMap(null);
             }
         }
-    });
+    }
 }
 
 function getDistanceBetween(placeA, placeB) {
