@@ -27,6 +27,14 @@
             </form>
         </div>
     </div>
+	<div class="row">
+		<button id="sub" class="btn btn-primary" type="button" onclick="subscribeMapUpdates()">Start map updates</button>
+		<button id="unsub" class="btn btn-primary" type="button" onclick="unsubscribeMapUpdates()">Stop map updates</button>
+	</div>
+	<br/>
+	<div class="row">
+		<button id="sendTestMsg" class="btn btn-primary" type="button" onclick="sendName()">Send test msg</button>
+	</div>
 	<p>Open the console to see updates from the server!!!</p>
 	<div class="output">
 	</div>

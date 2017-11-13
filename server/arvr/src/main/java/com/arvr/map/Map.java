@@ -25,7 +25,7 @@ public class Map {
 			throw new Exception("Parameters are null"); 
 		}
 		
-		mapFocus = new Coordinate(new BigDecimal(13.413215), new BigDecimal(52.521918)); 
+		mapFocus = new Coordinate(lattitude, longtitude);
 	}
 	
 	public static Coordinate getCurrentMapFocus() {

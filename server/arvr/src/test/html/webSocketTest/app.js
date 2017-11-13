@@ -14,7 +14,7 @@ function setConnected(connected) {
 
 function connect() {
 	
-    var socket = new SockJS('ws://localhost/ws-map-update');
+    var socket = new SockJS('http://localhost:8080/ws-map-update');
 	console.log("new oscket"); 
     stompClient = Stomp.over(socket);
 	console.log("new stompClient"); 
@@ -22,10 +22,24 @@ function connect() {
 		console.log("connecting..."); 
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/map/update', function (update) {
-            showNewMapSettings(JSON.parse(update.body).content);
-        });
+
+		stompClient.subscribe('/map/test', function(data) {
+			console.log("Received data from server: ", data); 
+		}); 
     });
+}
+
+mapUpdateCon = null; 
+
+function subscribeMapUpdates() {
+	mapUpdateCon = stompClient.subscribe('/map/update', function (update) {
+		showNewMapSettings(JSON.parse(update.body).content);
+	});
+}
+
+function unsubscribeMapUpdates() {
+	mapUpdateCon.unsubscribe(); 
+	mapUpdateCon = null; 
 }
 
 function disconnect() {
@@ -46,5 +60,4 @@ $(function () {
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendName(); });
 });
