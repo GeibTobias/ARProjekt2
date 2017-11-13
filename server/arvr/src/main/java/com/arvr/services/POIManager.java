@@ -24,15 +24,13 @@ public class POIManager {
 	@Autowired
 	private ListManager listManager; 
 	
-	@RequestMapping(path = "/add/{id}", method = RequestMethod.PUT)
-	public void addPOI(@PathVariable long id) {
+	@RequestMapping(path = "/add/{poi_id}", method = RequestMethod.PUT)
+	public void addPOI(@PathVariable String poi_id) {
 		
-		log.info("Add POI to list.");
-		
-		// do lookup for poi coords
+		log.info("Add POI to list: " + poi_id);
 		
 		POIEntry e = new POIEntry(); 
-		e.id = id; 
+		e.poi_id = poi_id; 
 		this.listManager.addPOI(e);
 	}
 	
@@ -43,10 +41,10 @@ public class POIManager {
 		return this.listManager.getRouteAsList(); 
 	}
 	
-	@RequestMapping(path = "/remove/{id}", method = RequestMethod.DELETE)
-	public void remove(@PathVariable long id) {
+	@RequestMapping(path = "/remove/{poi_id}", method = RequestMethod.DELETE)
+	public void remove(@PathVariable String poi_id) {
 		
-		log.info("Remove entry with id " + id + " from list.");
-		this.listManager.removePOI(id);
+		log.info("Remove POI from list: " + poi_id);
+		this.listManager.removePOI(poi_id);
 	}
 }

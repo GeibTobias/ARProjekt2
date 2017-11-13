@@ -6,10 +6,10 @@ import java.util.List;
 
 public class ListManager {
 
-	private HashMap<Long, POIEntry> route;
+	private HashMap<String, POIEntry> route;
 	
 	public ListManager() {
-		route = new HashMap<Long, POIEntry>(); 
+		route = new HashMap<String, POIEntry>(); 
 	}
 	
 	public void addPOI(POIEntry poi) {
@@ -17,7 +17,7 @@ public class ListManager {
 		if( poi == null )
 			throw new IllegalArgumentException(); 
 		
-		route.put(poi.id, poi); 
+		route.put(poi.poi_id, poi); 
 	}
 	
 	public void removePOI(POIEntry poi) {
@@ -25,12 +25,12 @@ public class ListManager {
 		if( poi == null )
 			return; 
 		
-		removePOI(poi.id);
+		removePOI(poi.poi_id);
 	}
 	
-	public void removePOI(long id) {
+	public void removePOI(String poi_id) {
 		
-		route.remove(id); 
+		route.remove(poi_id); 
 	}
 	
 	public List<POIEntry> getRouteAsList() {
@@ -38,7 +38,7 @@ public class ListManager {
 		return new ArrayList<POIEntry>(route.values()); 
 	}
 	
-	public HashMap<Long, POIEntry> getRouteAsMap() {
+	public HashMap<String, POIEntry> getRouteAsMap() {
 		
 		return route; 
 	}
