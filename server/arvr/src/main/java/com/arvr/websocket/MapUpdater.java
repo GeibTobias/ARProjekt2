@@ -1,5 +1,7 @@
 package com.arvr.websocket;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.arvr.map.Coordinate;
 import com.arvr.map.Map;
+import com.arvr.utils.POIEntry;
 
 @Controller
 @EnableScheduling
@@ -38,6 +42,29 @@ public class MapUpdater {
 		
 		MapSettingUpdate msg = new MapSettingUpdate(Map.getCurrentMapFocus(), Map.getZoom()); 
 		this.template.convertAndSend("/map/update", msg);
+	}
+	
+	@MessageMapping("/setmap")
+	@CrossOrigin
+	public void getUpdate(MapSettingUpdate update) {
+		
+		log.info("Map update: ", update);
+		
+		if( update != null ) {
+			Map.setZoom(update.getZoom());;
+			Coordinate coords = update.getCoords(); 
+			try {
+				Map.setFocus(coords.lattitude, coords.longtitude);
+			} catch (Exception e) {
+				log.error("Can#t update map focus", e); 
+			}
+		}
+	}
+	
+	@SendTo("/map/route/update")
+	public void sendRouteListUpdate(List<POIEntry> route) {
+		
+		this.template.convertAndSend("/map/route/update", route);
 	}
 	
 	@MessageMapping("/test")

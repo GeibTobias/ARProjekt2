@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.arvr.utils.ListManager;
 import com.arvr.utils.POIEntry;
+import com.arvr.websocket.MapUpdater;
 
 @RestController
 @RequestMapping(path = "/poimanager/")
@@ -24,6 +25,9 @@ public class POIManager {
 	@Autowired
 	private ListManager listManager; 
 	
+	@Autowired 
+	private MapUpdater mapUpdater; 
+	
 	@RequestMapping(path = "/add/{poi_id}", method = RequestMethod.PUT)
 	public void addPOI(@PathVariable String poi_id) {
 		
@@ -32,6 +36,8 @@ public class POIManager {
 		POIEntry e = new POIEntry(); 
 		e.poi_id = poi_id; 
 		this.listManager.addPOI(e);
+		
+		onMapUpdate(); 
 	}
 	
 	@RequestMapping(path = "/completelist", method = RequestMethod.GET)
@@ -46,5 +52,15 @@ public class POIManager {
 		
 		log.info("Remove POI from list: " + poi_id);
 		this.listManager.removePOI(poi_id);
+		
+		onMapUpdate(); 
+	}
+	
+	private void onMapUpdate() {
+				
+		new Thread(() -> {
+			List<POIEntry> route = this.listManager.getRouteAsList(); 
+			mapUpdater.sendRouteListUpdate(route);
+		}).start();
 	}
 }
