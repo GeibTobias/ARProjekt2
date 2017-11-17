@@ -6,26 +6,19 @@ import java.util.List;
 
 public class ListManager {
 
-	private HashMap<String, POIEntry> route;
+	private ArrayList<String> route;
 	
 	public ListManager() {
-		route = new HashMap<String, POIEntry>(); 
+		route = new ArrayList<String>();
 	}
 	
-	public void addPOI(POIEntry poi) {
+	public void addPOI(String poi) {
 		
 		if( poi == null )
 			throw new IllegalArgumentException(); 
 		
-		route.put(poi.poi_id, poi); 
-	}
-	
-	public void removePOI(POIEntry poi) {
-		
-		if( poi == null )
-			return; 
-		
-		removePOI(poi.poi_id);
+		if( !this.route.contains(poi) )
+			route.add(poi);
 	}
 	
 	public void removePOI(String poi_id) {
@@ -33,13 +26,12 @@ public class ListManager {
 		route.remove(poi_id); 
 	}
 	
-	public List<POIEntry> getRouteAsList() {
-		
-		return new ArrayList<POIEntry>(route.values()); 
-	}
-	
-	public HashMap<String, POIEntry> getRouteAsMap() {
+	public List<String> getRouteAsList() {
 		
 		return route; 
+	}
+	
+	public void setRoute(List<String> route) {
+		this.route = (ArrayList<String>) route; 
 	}
 }

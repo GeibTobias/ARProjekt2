@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arvr.utils.ListManager;
-import com.arvr.utils.POIEntry;
 import com.arvr.websocket.MapUpdater;
 
 @RestController
@@ -32,17 +31,15 @@ public class POIManager {
 	public void addPOI(@PathVariable String poi_id) {
 		
 		log.info("Add POI to list: " + poi_id);
-		
-		POIEntry e = new POIEntry(); 
-		e.poi_id = poi_id; 
-		this.listManager.addPOI(e);
+
+		this.listManager.addPOI(poi_id);
 		
 		onMapUpdate(); 
 	}
 	
 	@RequestMapping(path = "/completelist", method = RequestMethod.GET)
 	@Produces("application/json")
-	public List<POIEntry> getCompleteList() {
+	public List<String> getCompleteList() {
 		
 		return this.listManager.getRouteAsList(); 
 	}
@@ -58,9 +55,6 @@ public class POIManager {
 	
 	private void onMapUpdate() {
 				
-		new Thread(() -> {
-			List<POIEntry> route = this.listManager.getRouteAsList(); 
-			mapUpdater.sendRouteListUpdate(route);
-		}).start();
+		this.mapUpdater.onRouteUpdate();
 	}
 }

@@ -1,14 +1,15 @@
 var stompClient = null;
+var reconnect = false; 
 
 //
 // Connect to server websocket
 //
 function connect() {
 	
+	reconnect = true; 
+	
     var socket = new SockJS('http://localhost:8080/ws-map-update');
-	console.log("new oscket"); 
     stompClient = Stomp.over(socket);
-	console.log("new stompClient"); 
     stompClient.connect({}, function (frame) {
 		console.log("connecting..."); 
         console.log('Connected: ' + frame);
@@ -21,13 +22,26 @@ function connect() {
 			onRouteUpdate(JSON.parse(route.body)); 
 		}); 
     });
+	
+	socket.onclose = function(e) {
+		
+		if( reconnect ) {
+			setTimeout(() => {
+				connect();
+			  }, 500);
+		}
+	};
 }
 
 function disconnect() {
+	
+	reconnect = false; 
+	
     if (stompClient !== null) {
         stompClient.disconnect();
+		stompClient = null; 
     }
-    setConnected(false);
+
     console.log("Disconnected");
 }
 
@@ -75,4 +89,32 @@ function sendMapUpdate(lattitude, longtitude, zoom) {
 	//
 	// example how to send!
 	stompClient.send("/app/setmap", {}, JSON.stringify({'coords': { 'lattitude' : 232.23, 'longtitude' : '4555.4323' }, 'zoom' : 1 }));
+}
+
+
+//
+// Send a complete route to the server
+// The old route will be replaced by this
+//
+function sendRoute(route) {
+
+	stompClient.send("/app/map/route/clientupdate", {}, JSON.stringify(route)); 
+}
+
+//
+// Send Request for route update
+// subscribed method onRouteUpdate will be invoked wiht the response
+//
+function getRoute() {
+
+	stompClient.send("/app/map/route/get", {}, null); 
+}
+
+
+function addPOI(poi_string) {
+	stompClient.send("/app/map/route/add", {}, poi_string); 
+}
+
+function removePOI(poi_string) {
+	stompClient.send("/app/map/route/remove", {}, poi_string); 
 }
