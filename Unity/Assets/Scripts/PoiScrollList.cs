@@ -17,8 +17,6 @@ public class PoiScrollList : MonoBehaviour {
 	public Text myItemCountDisplay;
 	public SimpleObjectPool poiObjectPool;
 
-	int itemCount = 0;
-
 
 	// Use this for initialization
 	void Start () 
@@ -28,7 +26,7 @@ public class PoiScrollList : MonoBehaviour {
 
 	void RefreshDisplay()
 	{
-		myItemCountDisplay.text = "POI Count: " + itemCount.ToString () + "/10";
+		myItemCountDisplay.text = "POI Count: " + itemList.Count.ToString () + "/10";
 		RemovePois ();
 		AddPois ();
 	}
