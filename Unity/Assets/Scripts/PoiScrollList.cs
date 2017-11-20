@@ -8,6 +8,11 @@ public class Item
 {
 	public string itemName;
 	public Sprite image;
+
+	public Item (string itemName, Sprite image){
+		this.itemName = itemName;
+		this.image = image;
+	}
 }
 
 public class PoiScrollList : MonoBehaviour {
@@ -51,6 +56,13 @@ public class PoiScrollList : MonoBehaviour {
 			SamplePoi samplePoi = newPoi.GetComponent<SamplePoi>();
 			samplePoi.Setup(item, this);
 		}
+	}
+
+	public void AddItem(Item itemToAdd)
+	{
+		this.itemList.Add (itemToAdd);
+
+		RefreshDisplay ();
 	}
 
 	void AddItem(Item itemToAdd, PoiScrollList poiList)
