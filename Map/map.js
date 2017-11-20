@@ -14,8 +14,8 @@ function addMarker(place, codeID) {
     if (id < 10) {
         id = '0' + id;
     }
-    var image = 'images/markers144/VuMark' + id + '.png'
-    //var image = 'images/POI/brandenburger.jpg'
+    //var image = 'images/markers144/VuMark' + id + '.png'
+    var image = 'images/Chateau/Chateau_0.png'
 
     // If the request succeeds, draw the place location on
     // the map as a marker, and register an event to handle a
@@ -24,8 +24,8 @@ function addMarker(place, codeID) {
         map: map,
         position: place.geometry.location,
         icon: {
-            url: image //,
-            //scaledSize: new google.maps.Size(156, 78)
+            url: image ,
+            scaledSize: new google.maps.Size(146, 71)
         }
     });
 }
