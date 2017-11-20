@@ -6,10 +6,12 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Item
 {
+	public string poiID;
 	public string itemName;
 	public Sprite image;
 
-	public Item (string itemName, Sprite image){
+	public Item (string poiID, string itemName, Sprite image){
+		this.poiID = poiID;
 		this.itemName = itemName;
 		this.image = image;
 	}
@@ -60,60 +62,55 @@ public class PoiScrollList : MonoBehaviour {
 
 	public void AddItem(Item itemToAdd)
 	{
-		this.itemList.Add (itemToAdd);
+		if (itemList.Find(x => x.poiID == itemToAdd.poiID) == null) {
+			itemList.Add (itemToAdd);
+		}
 
 		RefreshDisplay ();
 	}
 
-	void AddItem(Item itemToAdd, PoiScrollList poiList)
-	{
-		poiList.itemList.Add (itemToAdd);
-
-		RefreshDisplay ();
-	}
-
-	public void UpdateItemList(Item[] itemsToAdd, PoiScrollList poiList) {
-		RemoveAllItems (poiList);
+	public void UpdateItemList(Item[] itemsToAdd) {
+		RemoveAllItems ();
 
 		for (int i = 0; i < itemsToAdd.Length; i++) {
-			AddItem (itemsToAdd [i], poiList);
+			AddItem (itemsToAdd [i]);
 		}
 	}
 
-	public void RemoveItem(Item itemToRemove, PoiScrollList poiList)
+	public void RemoveItem(Item itemToRemove)
 	{
-		for (int i = poiList.itemList.Count - 1; i >= 0; i--) 
+		for (int i = itemList.Count - 1; i >= 0; i--) 
 		{
-			if (poiList.itemList[i] == itemToRemove)
+			if (itemList[i] == itemToRemove)
 			{
-				poiList.itemList.RemoveAt(i);
+				itemList.RemoveAt(i);
 			}
 		}
 
 		RefreshDisplay ();
 	}
 
-	void RemoveAllItems(PoiScrollList poiList) {
-		poiList.itemList.Clear();
+	void RemoveAllItems() {
+		itemList.Clear();
 
 		RefreshDisplay ();
 	}
 
-	public void MoveItemUp(Item item, PoiScrollList poiList) {
-		int index = poiList.itemList.IndexOf (item);
+	public void MoveItemUp(Item item) {
+		int index = itemList.IndexOf (item);
 		if (index > 0) {
-			poiList.itemList.Remove (item);
-			poiList.itemList.Insert (index - 1, item);
+			itemList.Remove (item);
+			itemList.Insert (index - 1, item);
 		}
 
 		RefreshDisplay ();
 	}
 
-	public void MoveItemDown(Item item, PoiScrollList poiList) {
-		int index = poiList.itemList.IndexOf (item);
-		if (index < poiList.itemList.Count - 1) {
-			poiList.itemList.Remove (item);
-			poiList.itemList.Insert (index + 1, item);
+	public void MoveItemDown(Item item) {
+		int index = itemList.IndexOf (item);
+		if (index < itemList.Count - 1) {
+			itemList.Remove (item);
+			itemList.Insert (index + 1, item);
 		}
 
 		RefreshDisplay ();

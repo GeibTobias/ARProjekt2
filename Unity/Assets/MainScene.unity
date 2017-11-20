@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465934, g: 0.49642956, b: 0.57482487, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -615,7 +615,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: e98f4d0f1c28d924ab4d00307394f148, type: 2}
+  - {fileID: 1680054853}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1029,8 +1029,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poiID: ChIJtcaxrqlZwokRfwmmibzPsTU
+  trackerID: 0
   poiName: Empire State Building
   poiImage: {fileID: 21300000, guid: a263355d747bc4183b79b74668a5c9f8, type: 3}
+  content: {fileID: 1743389154}
 --- !u!65 &1452713142
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1125,7 +1127,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1470891777}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 209, y: 124, z: 0}
+  m_LocalPosition: {x: 794, y: 446.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 938361635}
@@ -1303,6 +1305,31 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+--- !u!21 &1680054853
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ChateauMaterial
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: fb41e78647c3facadabd7ca82f280daf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
 --- !u!1 &1685819318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,7 +1354,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1685819318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -11.199966, z: 0}
+  m_LocalPosition: {x: 0, y: -333.69995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 938361635}
@@ -1470,7 +1497,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1743389154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000014195755, y: 0.10119629, z: 0}
+  m_LocalPosition: {x: 0.000014195755, y: 0.07489014, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2112385944}
@@ -1478,7 +1505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.000014195755, y: 325.8512}
+  m_AnchoredPosition: {x: 0.000014195755, y: 325.8249}
   m_SizeDelta: {x: 0, y: 428.41}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1743389156
@@ -1527,11 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bb82099b18d494ca62378e4b7958f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList:
-  - itemName: Empire State Building
-    image: {fileID: 21300000, guid: a263355d747bc4183b79b74668a5c9f8, type: 3}
-  - itemName: Chrysler Building
-    image: {fileID: 21300000, guid: cfe155ddc47a9483d83ae194f3c07148, type: 3}
+  itemList: []
   contentPanel: {fileID: 1743389155}
   myItemCountDisplay: {fileID: 1685819320}
   poiObjectPool: {fileID: 25398166}
@@ -1611,7 +1634,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1878807668}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9992759
+  m_Size: 0.9998071
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1689,6 +1712,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1830381694 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100004, guid: cf3910b7639e12447827e45f63f60201, type: 3}
+  m_PrefabInternal: {fileID: 1179617463}
+--- !u!114 &1830381695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1830381694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8274c29e17b68f34ca35a3676b269178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poiID: sdlhfksd
+  trackerID: 3
+  poiName: Chrysler Building
+  poiImage: {fileID: 21300000, guid: cfe155ddc47a9483d83ae194f3c07148, type: 3}
+  content: {fileID: 1743389154}
+--- !u!65 &1830381696
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1830381694}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0.78, z: 0}
 --- !u!1 &1878807667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1768,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1878807667}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2286377, z: 0}
+  m_LocalPosition: {x: 0, y: -0.060913086, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1482670723}

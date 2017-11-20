@@ -32,16 +32,16 @@ public class SamplePoi : MonoBehaviour {
 
 	public void HandleUpClick()
 	{
-		scrollList.MoveItemUp (item, scrollList);
+		scrollList.MoveItemUp (item);
 	}
 
 	public void HandleDownClick()
 	{
-		scrollList.MoveItemDown (item, scrollList);
+		scrollList.MoveItemDown (item);
 	}
 
 	public void HandleDeleteClick()
 	{
-		scrollList.RemoveItem (item, scrollList);
+		scrollList.RemoveItem (item);
 	}
 }

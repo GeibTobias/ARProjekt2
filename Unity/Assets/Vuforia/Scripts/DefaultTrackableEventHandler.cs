@@ -16,18 +16,20 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 {
     #region PRIVATE_MEMBER_VARIABLES
 
-    protected TrackableBehaviour mTrackableBehaviour;
+	protected VuMarkBehaviour mTrackableBehaviour;
 
     #endregion // PRIVATE_MEMBER_VARIABLES
 
     #region UNTIY_MONOBEHAVIOUR_METHODS
 
-    protected virtual void Start()
-    {
-        mTrackableBehaviour = GetComponent<TrackableBehaviour>();
-        if (mTrackableBehaviour)
-            mTrackableBehaviour.RegisterTrackableEventHandler(this);
-    }
+	protected virtual void Start()
+	{
+		mTrackableBehaviour = GetComponent<VuMarkBehaviour>();
+		if (mTrackableBehaviour) {
+			mTrackableBehaviour.RegisterTrackableEventHandler (this);
+			mTrackableBehaviour.RegisterVuMarkTargetAssignedCallback (OnVuMarkAssigned);
+		}
+	}
 
     #endregion // UNTIY_MONOBEHAVIOUR_METHODS
 
@@ -67,30 +69,47 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
     #region PRIVATE_METHODS
 
-    protected virtual void OnTrackingFound()
-    {
-        var rendererComponents = GetComponentsInChildren<Renderer>(true);
-        var colliderComponents = GetComponentsInChildren<Collider>(true);
-        var canvasComponents = GetComponentsInChildren<Canvas>(true);
+	void OnVuMarkAssigned() {
+		Debug.Log ("VuMark ID: " + mTrackableBehaviour.VuMarkTarget.InstanceId.StringValue);
+	}
 
-        // Enable rendering:
-        foreach (var component in rendererComponents)
-            component.enabled = true;
+	protected virtual void OnTrackingFound()
+	{
 
-        // Enable colliders:
-        foreach (var component in colliderComponents)
-            component.enabled = true;
+		var rendererComponents = GetComponentsInChildren<Renderer>(true);
+		var colliderComponents = GetComponentsInChildren<BoxCollider>(true);
+		var canvasComponents = GetComponentsInChildren<Canvas>(true);
 
-        // Enable canvas':
-        foreach (var component in canvasComponents)
-            component.enabled = true;
-    }
+		// Enable rendering:
+		foreach (var component in rendererComponents) {
+			POI poi = component.gameObject.GetComponentInParent<POI>();
+			if (int.Parse(poi.trackerID) == int.Parse(mTrackableBehaviour.VuMarkTarget.InstanceId.StringValue)) {
+				component.enabled = true;
+			}
+		}
 
+		// Enable colliders:
+		foreach (var component in colliderComponents) {
+			POI poi = component.gameObject.GetComponent<POI> ();
+			if (int.Parse(poi.trackerID) == int.Parse(mTrackableBehaviour.VuMarkTarget.InstanceId.StringValue)) {
+				component.enabled = true;
+			}
+		}
+
+		// Enable canvas':
+		foreach (var component in canvasComponents) {
+			// Is a canvas in the parent or in this gameobject?
+			POI poi = component.gameObject.GetComponent<POI>();
+			if (int.Parse(poi.trackerID) == int.Parse(mTrackableBehaviour.VuMarkTarget.InstanceId.StringValue)) {
+				component.enabled = true;
+			}
+		}
+	}
 
     protected virtual void OnTrackingLost()
     {
         var rendererComponents = GetComponentsInChildren<Renderer>(true);
-        var colliderComponents = GetComponentsInChildren<Collider>(true);
+		var colliderComponents = GetComponentsInChildren<BoxCollider>(true);
         var canvasComponents = GetComponentsInChildren<Canvas>(true);
 
         // Disable rendering:
