@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.arvr.map.Coordinate;
 import com.arvr.map.Map;
-import com.arvr.utils.MapSeWrapper;
-import com.arvr.websocket.MapSettingUpdate;
 
 @RestController
 @RequestMapping(path = "/mapsync/")
@@ -57,12 +55,5 @@ public class MapSync {
 	public  @ResponseBody String getZoom() {
 		
 		return String.valueOf(Map.getZoom()); 
-	}
-	
-	@RequestMapping(path = "/mapget", method = RequestMethod.GET)
-	@Produces("application/json")
-	public MapSeWrapper getMapSettings()
-	{
-		return Map.getMapSettingsWrapper(); 
 	}
 }
