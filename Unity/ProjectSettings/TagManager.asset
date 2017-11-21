@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Content
-  - Cyber
-  - Tower
-  - Camera
+  tags: []
   layers:
   - Default
   - TransparentFX
