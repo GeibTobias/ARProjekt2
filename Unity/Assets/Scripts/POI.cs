@@ -8,7 +8,7 @@ public class POI : MonoBehaviour {
 	public string poiID;
 	public string trackerID;
 	public string poiName;
-	public Sprite poiImage;
+	public Sprite poiImage;	
 	public GameObject content;
 	private PoiScrollList scrollList;
 
@@ -28,7 +28,9 @@ public class POI : MonoBehaviour {
 			if (Physics.Raycast (ray, out hit)) {
 
 				BoxCollider bc = hit.collider as BoxCollider;
-				if (bc && bc.enabled) {
+				POI poi = gameObject.GetComponent<POI> ();
+				BoxCollider poiBC = gameObject.GetComponent<BoxCollider> ();
+				if (bc && poiBC.enabled && int.Parse(poi.trackerID) == int.Parse(trackerID)) {
 					
 					scrollList.AddItem (new Item(poiID, poiName, poiImage));
 				}
